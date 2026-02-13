@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CraftWorld — Minecraft Clone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="overlay">
+    <div class="loading-content">
+      <h1 class="game-logo">Craft<span>World</span></h1>
+      <div class="loading-bar-outer">
+        <div class="loading-bar-inner" id="loadingBar"></div>
+      </div>
+      <p id="loadingText">Generating world...</p>
+    </div>
+  </div>
+
+  <!-- Start Screen -->
+  <div id="startScreen" class="overlay hidden">
+    <div class="start-content">
+      <h1 class="game-logo">Craft<span>World</span></h1>
+      <p class="start-sub">A Minecraft-style Voxel Game</p>
+      <button id="btnPlay" class="btn-play">▶ Play World</button>
+      <div class="controls-help">
+        <h3>Controls</h3>
+        <div class="ctrl-grid">
+          <div><kbd>W A S D</kbd> Move</div>
+          <div><kbd>SPACE</kbd> Jump</div>
+          <div><kbd>MOUSE</kbd> Look Around</div>
+          <div><kbd>LEFT CLICK</kbd> Break Block</div>
+          <div><kbd>RIGHT CLICK</kbd> Place Block</div>
+          <div><kbd>1-9</kbd> Select Block</div>
+          <div><kbd>SCROLL</kbd> Cycle Blocks</div>
+          <div><kbd>E</kbd> Toggle Inventory</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <!-- Crosshair -->
+    <div class="crosshair">
+      <div class="cross-h"></div>
+      <div class="cross-v"></div>
+    </div>
+
+    <!-- Hotbar -->
+    <div class="hotbar" id="hotbar"></div>
+
+    <!-- Debug Info -->
+    <div class="debug-info" id="debugInfo">
+      <div id="fpsCounter">FPS: 0</div>
+      <div id="posInfo">X: 0 Y: 0 Z: 0</div>
+    </div>
+
+    <!-- Block name tooltip -->
+    <div class="block-tooltip hidden" id="blockTooltip"></div>
+  </div>
+
+  <!-- Pause Menu -->
+  <div id="pauseMenu" class="overlay hidden">
+    <div class="pause-content">
+      <h2>Game Paused</h2>
+      <button id="btnResume" class="btn-menu">Resume</button>
+      <button id="btnRestart" class="btn-menu">New World</button>
+      <p class="pause-hint">Press ESC to resume</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="textures.js"></script>
+  <script src="world.js"></script>
+  <script src="game.js"></script>
+</body>
+
+</html>
