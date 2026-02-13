@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neeraj Koranga — Game Portfolio</title>
+  <meta name="description"
+    content="Play browser-based games by Neeraj Koranga. CraftWorld Minecraft clone & Nova Strike space shooter — built with HTML5, CSS & JavaScript.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+  <div class="bg-glow bg-glow-3"></div>
+
+  <!-- Floating Particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <div class="logo">
+        <span class="logo-icon">🎮</span>
+        <span class="logo-text">Neeraj<span class="accent">Koranga</span></span>
+      </div>
+      <nav class="nav">
+        <a href="https://github.com/Neerajkorangaa" target="_blank" class="nav-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+          GitHub
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">🕹️ GAME DEVELOPER PORTFOLIO</div>
+      <h1 class="hero-title">
+        I Build <span class="gradient-text">Browser Games</span>
+      </h1>
+      <p class="hero-subtitle">
+        Explore my collection of games — built entirely with HTML5, CSS & JavaScript.
+        No downloads needed, just click and play!
+      </p>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Games</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">3D</span>
+          <span class="stat-label">& 2D</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Browser-Based</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games Section -->
+  <section class="games" id="games">
+    <div class="container">
+      <h2 class="section-title">My Games</h2>
+
+      <!-- Game Card 1: CraftWorld -->
+      <div class="game-card">
+        <div class="game-preview craft-preview">
+          <div class="craft-scene">
+            <div class="craft-sky"></div>
+            <div class="craft-sun"></div>
+            <div class="craft-cloud c1"></div>
+            <div class="craft-cloud c2"></div>
+            <div class="craft-ground"></div>
+            <div class="craft-block b1"></div>
+            <div class="craft-block b2"></div>
+            <div class="craft-block b3"></div>
+            <div class="craft-block b4"></div>
+            <div class="craft-tree"></div>
+            <div class="craft-tree t2"></div>
+            <div class="craft-crosshair">+</div>
+          </div>
+          <div class="game-preview-overlay">
+            <span class="play-icon">▶</span>
+          </div>
+        </div>
+        <div class="game-info">
+          <div class="game-tags">
+            <span class="tag tag-3d">3D</span>
+            <span class="tag tag-sandbox">Sandbox</span>
+            <span class="tag tag-voxel">Voxel</span>
+          </div>
+          <h3 class="game-title">CraftWorld</h3>
+          <p class="game-desc">
+            A Minecraft-inspired voxel game with procedural terrain generation,
+            block placement & breaking, first-person controls, inventory system,
+            and an immersive 3D world. Built with Three.js.
+          </p>
+          <div class="game-features">
+            <span>🌍 Procedural World</span>
+            <span>⛏️ Break & Place</span>
+            <span>🎒 Inventory</span>
+            <span>🎮 First-Person</span>
+          </div>
+          <div class="game-actions">
+            <!-- UPDATE THIS URL with your actual Vercel URL -->
+            <a href="https://mine-craft-lpw1dg72p-neerajkorangaas-projects.vercel.app" target="_blank"
+              class="btn btn-primary" id="playcraft">
+              ▶ Play Now
+            </a>
+            <a href="https://github.com/Neerajkorangaa/MineCraft" target="_blank" class="btn btn-secondary">
+              ⟨/⟩ Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Card 2: Nova Strike -->
+      <div class="game-card reverse">
+        <div class="game-preview nova-preview">
+          <div class="nova-scene">
+            <div class="nova-stars"></div>
+            <div class="nova-ship"></div>
+            <div class="nova-bullet b1"></div>
+            <div class="nova-bullet b2"></div>
+            <div class="nova-bullet b3"></div>
+            <div class="nova-enemy e1"></div>
+            <div class="nova-enemy e2"></div>
+            <div class="nova-enemy e3"></div>
+            <div class="nova-explosion"></div>
+          </div>
+          <div class="game-preview-overlay">
+            <span class="play-icon">▶</span>
+          </div>
+        </div>
+        <div class="game-info">
+          <div class="game-tags">
+            <span class="tag tag-2d">2D</span>
+            <span class="tag tag-arcade">Arcade</span>
+            <span class="tag tag-shooter">Shooter</span>
+          </div>
+          <h3 class="game-title">Nova Strike</h3>
+          <p class="game-desc">
+            A fast-paced space shooter with neon visuals, wave-based enemies,
+            power-ups, combo system, and explosive screen effects.
+            Survive the onslaught and rack up your high score!
+          </p>
+          <div class="game-features">
+            <span>🚀 Space Combat</span>
+            <span>⚡ Power-Ups</span>
+            <span>🔥 Combo System</span>
+            <span>👾 Boss Fights</span>
+          </div>
+          <div class="game-actions">
+            <!-- UPDATE THIS URL with your actual Vercel URL -->
+            <a href="https://game-war-space-5svtay20y-neerajkorangaas-projects.vercel.app" target="_blank"
+              class="btn btn-primary btn-nova" id="playnova">
+              ▶ Play Now
+            </a>
+            <a href="https://github.com/Neerajkorangaa/Game-War-space" target="_blank" class="btn btn-secondary">
+              ⟨/⟩ Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Built with ❤️ by <strong>Neeraj Koranga</strong></p>
+      <p class="footer-sub">HTML5 · CSS · JavaScript · Three.js</p>
+    </div>
+  </footer>
+
+  <script>
+    // Floating Particles
+    (function () {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 40; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 1;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.top = Math.random() * 100 + '%';
+        p.style.animationDuration = (Math.random() * 15 + 10) + 's';
+        p.style.animationDelay = (Math.random() * 10) + 's';
+        p.style.opacity = Math.random() * 0.5 + 0.1;
+        container.appendChild(p);
+      }
+    })();
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+
+    // Card hover tilt effect
+    document.querySelectorAll('.game-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+      });
+    });
+  </script>
+</body>
+
+</html>
