@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neeraj Koranga | Full Stack Developer & ML Engineer</title>
+  <meta name="description"
+    content="Portfolio of Neeraj Singh Koranga — Full Stack Developer, Game Developer & ML Engineer. BCA graduate pursuing MCA in AI & Data Science.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Cursor Glow -->
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bolt">⚡</span><span class="logo-initials">NK</span>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Portfolio</a></li>
+        <li><a href="#demos" class="nav-link">Demos</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Contact Me</a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <div class="hero-grid"></div>
+      <div class="hero-glow g1"></div>
+      <div class="hero-glow g2"></div>
+      <div class="hero-glow g3"></div>
+      <div class="particles" id="heroParticles"></div>
+    </div>
+    <div class="container hero-container">
+      <div class="hero-content">
+        <p class="hero-intro animate-on-scroll">Introducing</p>
+        <h1 class="hero-title animate-on-scroll">
+          <span class="hero-line1">Hello</span>
+          <span class="hero-line2">I'm <span class="grad-text">Neeraj</span><span class="grad-text-2">
+              Koranga</span></span>
+        </h1>
+        <p class="hero-desc animate-on-scroll">
+          A passionate <strong>Full Stack Developer</strong> and <strong>ML Engineer</strong> building
+          intelligent web applications and immersive browser-based games. I turn complex problems
+          into elegant, user-friendly digital solutions.
+        </p>
+        <div class="hero-btns animate-on-scroll">
+          <a href="#projects" class="btn btn-primary">
+            <span>VIEW PROJECTS</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10" />
+            </svg>
+          </a>
+          <a href="#contact" class="btn btn-outline">HIRE ME</a>
+        </div>
+      </div>
+      <div class="hero-visual animate-on-scroll">
+        <div class="hero-photo-wrapper">
+          <img src="neeraj-photo.jpg" alt="Neeraj Singh Koranga" class="hero-photo" loading="eager">
+          <div class="photo-ring"></div>
+          <div class="photo-ring ring-2"></div>
+          <div class="photo-status">
+            <span class="status-dot"></span> Available for work
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="section" id="about">
+    <div class="container">
+      <p class="section-num animate-on-scroll">01.</p>
+      <h2 class="section-title animate-on-scroll">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text animate-on-scroll">
+          <p>
+            Hey! I'm <strong>Neeraj Singh Koranga</strong>, a passionate Full Stack Developer,
+            Game Developer, and ML Engineer from India. I hold a <strong>Bachelor's degree in BCA</strong>
+            and I'm currently pursuing my <strong>Master's (MCA) in AI & Data Science</strong>.
+          </p>
+          <p>
+            From crafting a fully playable <strong>Minecraft clone</strong> with procedural terrain
+            generation using Three.js to building a <strong>Metro Route Planner</strong> using
+            graph algorithms — I enjoy pushing the limits of what's possible with technology.
+          </p>
+          <p>
+            I'm constantly learning and experimenting with new technologies. Whether it's
+            Machine Learning models, full-stack web apps, or browser games — I love turning
+            creative ideas into reality.
+          </p>
+        </div>
+        <div class="about-cards animate-on-scroll">
+          <div class="about-card">
+            <span class="about-card-icon">🎓</span>
+            <h4>Education</h4>
+            <p>BCA Graduate<br>MCA (AI & DS) — Pursuing</p>
+          </div>
+          <div class="about-card">
+            <span class="about-card-icon">💻</span>
+            <h4>Experience</h4>
+            <p>Full Stack Development<br>Game & ML Engineering</p>
+          </div>
+          <div class="about-card">
+            <span class="about-card-icon">🚀</span>
+            <h4>Projects</h4>
+            <p>4+ Live Projects<br>100% Functional</p>
+          </div>
+          <div class="about-card">
+            <span class="about-card-icon">🌐</span>
+            <h4>Focus</h4>
+            <p>AI & Data Science<br>Interactive Web Apps</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SKILLS ==================== -->
+  <section class="section section-alt" id="skills">
+    <div class="container">
+      <p class="section-num animate-on-scroll">02.</p>
+      <h2 class="section-title animate-on-scroll">Skills & Technologies</h2>
+      <div class="skills-grid animate-on-scroll">
+
+        <div class="skill-cat">
+          <h3 class="skill-cat-title"><span class="skill-cat-icon">🔤</span> Languages</h3>
+          <div class="skill-list">
+            <div class="skill-chip"><span>🟨</span> JavaScript</div>
+            <div class="skill-chip"><span>🐍</span> Python</div>
+            <div class="skill-chip"><span>⚙️</span> C</div>
+            <div class="skill-chip"><span>🔷</span> C++</div>
+            <div class="skill-chip"><span>🟦</span> TypeScript</div>
+            <div class="skill-chip"><span>☕</span> Java</div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="skill-cat-title"><span class="skill-cat-icon">🌐</span> Frontend</h3>
+          <div class="skill-list">
+            <div class="skill-chip"><span>📄</span> HTML5</div>
+            <div class="skill-chip"><span>🎨</span> CSS3</div>
+            <div class="skill-chip"><span>⚛️</span> React</div>
+            <div class="skill-chip"><span>📱</span> Responsive</div>
+            <div class="skill-chip"><span>🎲</span> Three.js</div>
+            <div class="skill-chip"><span>🕹️</span> Canvas API</div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="skill-cat-title"><span class="skill-cat-icon">⚙️</span> Backend & Full Stack</h3>
+          <div class="skill-list">
+            <div class="skill-chip"><span>🟢</span> Node.js</div>
+            <div class="skill-chip"><span>🚂</span> Express.js</div>
+            <div class="skill-chip"><span>🗄️</span> MongoDB</div>
+            <div class="skill-chip"><span>🐘</span> SQL</div>
+            <div class="skill-chip"><span>🔌</span> REST APIs</div>
+            <div class="skill-chip"><span>▲</span> Next.js</div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="skill-cat-title"><span class="skill-cat-icon">🤖</span> ML / AI</h3>
+          <div class="skill-list">
+            <div class="skill-chip"><span>🧠</span> Machine Learning</div>
+            <div class="skill-chip"><span>📊</span> Data Science</div>
+            <div class="skill-chip"><span>🐼</span> Pandas</div>
+            <div class="skill-chip"><span>📈</span> NumPy</div>
+            <div class="skill-chip"><span>🤖</span> TensorFlow</div>
+            <div class="skill-chip"><span>🔬</span> Scikit-learn</div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="skill-cat-title"><span class="skill-cat-icon">🎮</span> Game Development</h3>
+          <div class="skill-list">
+            <div class="skill-chip"><span>🌍</span> WebGL</div>
+            <div class="skill-chip"><span>🧊</span> Voxel Engines</div>
+            <div class="skill-chip"><span>🎯</span> Physics</div>
+            <div class="skill-chip"><span>✨</span> Particle Systems</div>
+            <div class="skill-chip"><span>🗺️</span> Procedural Gen</div>
+            <div class="skill-chip"><span>🕹️</span> Game Loops</div>
+          </div>
+        </div>
+
+        <div class="skill-cat">
+          <h3 class="skill-cat-title"><span class="skill-cat-icon">🛠️</span> Tools & Platforms</h3>
+          <div class="skill-list">
+            <div class="skill-chip"><span>🐙</span> Git & GitHub</div>
+            <div class="skill-chip"><span>▲</span> Vercel</div>
+            <div class="skill-chip"><span>💻</span> VS Code</div>
+            <div class="skill-chip"><span>📦</span> npm</div>
+            <div class="skill-chip"><span>🐧</span> Linux</div>
+            <div class="skill-chip"><span>🐳</span> Docker</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section class="section" id="projects">
+    <div class="container">
+      <p class="section-num animate-on-scroll">03.</p>
+      <h2 class="section-title animate-on-scroll">Featured Projects</h2>
+
+      <!-- Project 1: CraftWorld -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-visual craft-visual">
+          <div class="craft-scene">
+            <div class="craft-sky"></div>
+            <div class="craft-sun"></div>
+            <div class="craft-cloud c1"></div>
+            <div class="craft-cloud c2"></div>
+            <div class="craft-ground"></div>
+            <div class="craft-block b1"></div>
+            <div class="craft-block b2"></div>
+            <div class="craft-block b3"></div>
+            <div class="craft-tree"></div>
+            <div class="craft-tree t2"></div>
+            <div class="craft-crosshair">+</div>
+          </div>
+          <div class="project-badge">🎮 Game</div>
+          <div class="project-hover">
+            <a href="https://mine-craft-lpw1dg72p-neerajkorangaas-projects.vercel.app" target="_blank"
+              class="hover-btn">▶ Play Live</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="project-tags">
+            <span class="ptag">Three.js</span>
+            <span class="ptag">3D</span>
+            <span class="ptag">Voxel</span>
+            <span class="ptag">WebGL</span>
+          </div>
+          <h3>🧊 CraftWorld — Minecraft Clone</h3>
+          <p>
+            A fully playable Minecraft-inspired voxel game featuring procedural terrain generation,
+            block placement & breaking, first-person controls, inventory system with hotbar,
+            and mobile touch controls. Built entirely with Three.js and vanilla JavaScript.
+          </p>
+          <ul class="project-features">
+            <li>🌍 Procedural world generation with multiple biomes</li>
+            <li>⛏️ Break and place blocks in real-time</li>
+            <li>📱 Mobile touch controls with virtual joystick</li>
+            <li>🎮 First-person camera with WASD + mouse controls</li>
+          </ul>
+          <div class="project-actions">
+            <a href="https://mine-craft-lpw1dg72p-neerajkorangaas-projects.vercel.app" target="_blank"
+              class="proj-link proj-live">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+              Live Demo
+            </a>
+            <a href="https://github.com/Neerajkorangaa/MineCraft" target="_blank" class="proj-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 2: Nova Strike -->
+      <div class="project-card reverse animate-on-scroll">
+        <div class="project-visual nova-visual">
+          <div class="nova-scene">
+            <div class="nova-stars"></div>
+            <div class="nova-ship"></div>
+            <div class="nova-bullet nb1"></div>
+            <div class="nova-bullet nb2"></div>
+            <div class="nova-bullet nb3"></div>
+            <div class="nova-enemy ne1"></div>
+            <div class="nova-enemy ne2"></div>
+            <div class="nova-enemy ne3"></div>
+            <div class="nova-explosion"></div>
+          </div>
+          <div class="project-badge">🎮 Game</div>
+          <div class="project-hover">
+            <a href="https://game-war-space-5svtay20y-neerajkorangaas-projects.vercel.app" target="_blank"
+              class="hover-btn">▶ Play Live</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="project-tags">
+            <span class="ptag">Canvas</span>
+            <span class="ptag">2D</span>
+            <span class="ptag">Arcade</span>
+            <span class="ptag">Shooter</span>
+          </div>
+          <h3>🚀 Nova Strike — Space Shooter</h3>
+          <p>
+            A fast-paced space shooter with stunning neon visuals, wave-based enemy system,
+            power-ups, combo multipliers, boss fights, and explosive screen effects.
+            Features multiple weapon upgrades and dynamic difficulty scaling.
+          </p>
+          <ul class="project-features">
+            <li>🚀 Intense space combat with neon visuals</li>
+            <li>⚡ 4-tier weapon power-up system</li>
+            <li>🔥 Combo multiplier for high scores</li>
+            <li>👾 Boss enemies with HP bars at wave 8+</li>
+          </ul>
+          <div class="project-actions">
+            <a href="https://game-war-space-5svtay20y-neerajkorangaas-projects.vercel.app" target="_blank"
+              class="proj-link proj-live">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+              Live Demo
+            </a>
+            <a href="https://github.com/Neerajkorangaa/Game-War-space" target="_blank" class="proj-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 3: Dehradun Metro -->
+      <div class="project-card animate-on-scroll">
+        <div class="project-visual metro-visual">
+          <div class="metro-scene">
+            <div class="metro-bg"></div>
+            <div class="metro-line yellow-line"></div>
+            <div class="metro-line blue-line"></div>
+            <div class="metro-line red-line"></div>
+            <div class="metro-station ms1"></div>
+            <div class="metro-station ms2"></div>
+            <div class="metro-station ms3"></div>
+            <div class="metro-station ms4"></div>
+            <div class="metro-station ms5"></div>
+            <div class="metro-station ms6"></div>
+            <div class="metro-label">DEHRADUN METRO</div>
+            <div class="metro-path-glow"></div>
+          </div>
+          <div class="project-badge">📊 DSA</div>
+          <div class="project-hover">
+            <a href="#" class="hover-btn">📂 View Project</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="project-tags">
+            <span class="ptag">C</span>
+            <span class="ptag">Graphs</span>
+            <span class="ptag">BFS</span>
+            <span class="ptag">Dijkstra</span>
+            <span class="ptag">Web UI</span>
+          </div>
+          <h3>🚇 Dehradun Metro — Route Planner</h3>
+          <p>
+            A metro route planning system built in C using graph data structures.
+            Features optimal route finding with Dijkstra's algorithm for shortest distance
+            and BFS for minimum stops. Includes a beautiful interactive web UI and fare calculation.
+          </p>
+          <ul class="project-features">
+            <li>🗺️ 3 metro lines — Yellow, Blue & Red covering 24 stations</li>
+            <li>⚡ Dijkstra's algorithm for shortest distance routing</li>
+            <li>🔍 BFS traversal for minimum stops calculation</li>
+            <li>💰 Fare estimation & travel time calculation</li>
+          </ul>
+          <div class="project-actions">
+            <a href="https://github.com/Neerajkorangaa" target="_blank" class="proj-link proj-live">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+              View Project
+            </a>
+            <a href="https://github.com/Neerajkorangaa" target="_blank" class="proj-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project 4: SkyPulse Weather App -->
+      <div class="project-card reverse animate-on-scroll">
+        <div class="project-visual weather-visual">
+          <div class="weather-scene">
+            <div class="weather-sky"></div>
+            <div class="weather-sun-orb"></div>
+            <div class="weather-cloud wc1"></div>
+            <div class="weather-cloud wc2"></div>
+            <div class="weather-cloud wc3"></div>
+            <div class="weather-raindrop wr1"></div>
+            <div class="weather-raindrop wr2"></div>
+            <div class="weather-raindrop wr3"></div>
+            <div class="weather-raindrop wr4"></div>
+            <div class="weather-temp-display">24°</div>
+          </div>
+          <div class="project-badge">🌐 Web App</div>
+          <div class="project-hover">
+            <a href="#" class="hover-btn">▶ Open App</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="project-tags">
+            <span class="ptag">JavaScript</span>
+            <span class="ptag">API</span>
+            <span class="ptag">Responsive</span>
+            <span class="ptag">Glassmorphism</span>
+          </div>
+          <h3>⛅ SkyPulse — Weather App</h3>
+          <p>
+            A premium weather application featuring real-time forecasts, hourly & 7-day views,
+            UV index, wind compass, humidity visualization, and geocoding search with autocomplete.
+            Built with Open-Meteo API — no API key required.
+          </p>
+          <ul class="project-features">
+            <li>🌡️ Real-time weather with hourly & 7-day forecasts</li>
+            <li>☀️ UV Index, wind compass, and humidity arc</li>
+            <li>🔍 City search with autocomplete suggestions</li>
+            <li>📱 Fully responsive — works on mobile & desktop</li>
+          </ul>
+          <div class="project-actions">
+            <a href="#" class="proj-link proj-live">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+              </svg>
+              Live Demo
+            </a>
+            <a href="https://github.com/Neerajkorangaa" target="_blank" class="proj-link">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+              </svg>
+              Source Code
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== DEMOS ==================== -->
+  <section class="section section-alt" id="demos">
+    <div class="container">
+      <p class="section-num animate-on-scroll">04.</p>
+      <h2 class="section-title animate-on-scroll">Live Demos</h2>
+      <p class="demos-subtitle animate-on-scroll">Click to play my games directly in your browser — no downloads
+        needed!</p>
+      <div class="demos-grid animate-on-scroll">
+        <div class="demo-card">
+          <div class="demo-iframe-wrap">
+            <iframe src="https://mine-craft-lpw1dg72p-neerajkorangaas-projects.vercel.app" title="CraftWorld Demo"
+              loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+            <div class="demo-blocker" id="demoCraft">
+              <div class="demo-blocker-content">
+                <span class="demo-icon">🧊</span>
+                <h4>CraftWorld</h4>
+                <p>Minecraft Clone</p>
+                <a href="https://mine-craft-lpw1dg72p-neerajkorangaas-projects.vercel.app" target="_blank"
+                  class="demo-play-btn">▶ Open Full Screen</a>
+              </div>
+            </div>
+          </div>
+          <div class="demo-info">
+            <h4>CraftWorld — Minecraft Clone</h4>
+            <p>3D voxel world with block building & exploration</p>
+          </div>
+        </div>
+        <div class="demo-card">
+          <div class="demo-iframe-wrap">
+            <iframe src="https://game-war-space-5svtay20y-neerajkorangaas-projects.vercel.app" title="Nova Strike Demo"
+              loading="lazy" sandbox="allow-scripts allow-same-origin"></iframe>
+            <div class="demo-blocker" id="demoNova">
+              <div class="demo-blocker-content">
+                <span class="demo-icon">🚀</span>
+                <h4>Nova Strike</h4>
+                <p>Space Shooter</p>
+                <a href="https://game-war-space-5svtay20y-neerajkorangaas-projects.vercel.app" target="_blank"
+                  class="demo-play-btn">▶ Open Full Screen</a>
+              </div>
+            </div>
+          </div>
+          <div class="demo-info">
+            <h4>Nova Strike — Space Shooter</h4>
+            <p>Fast-paced arcade action with neon visuals</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <p class="section-num animate-on-scroll">05.</p>
+      <h2 class="section-title animate-on-scroll">Get In Touch</h2>
+      <p class="contact-sub animate-on-scroll">I'm always open to new opportunities. Feel free to reach out!</p>
+      <div class="contact-grid animate-on-scroll">
+        <a href="mailto:neeraj.koranga810@gmail.com" class="contact-card">
+          <div class="contact-icon-wrap">📧</div>
+          <h4>Email</h4>
+          <p>neeraj.koranga810@gmail.com</p>
+        </a>
+        <a href="https://github.com/Neerajkorangaa" target="_blank" class="contact-card">
+          <div class="contact-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+            </svg>
+          </div>
+          <h4>GitHub</h4>
+          <p>View my repositories</p>
+        </a>
+        <a href="https://www.linkedin.com/in/neeraj-singh-koranga-567a50282/" target="_blank" class="contact-card">
+          <div class="contact-icon-wrap">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+            </svg>
+          </div>
+          <h4>LinkedIn</h4>
+          <p>Let's connect</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <a href="#hero" class="footer-logo"><span class="logo-bolt">⚡</span><span class="logo-initials">NK</span></a>
+      <p>Designed & Built by <strong>Neeraj Koranga</strong></p>
+      <div class="footer-socials">
+        <a href="https://github.com/Neerajkorangaa" target="_blank" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+          </svg>
+        </a>
+        <a href="https://www.linkedin.com/in/neeraj-singh-koranga-567a50282/" target="_blank" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+        </a>
+        <a href="mailto:neeraj.koranga810@gmail.com" aria-label="Email">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 7l-10 7L2 7" />
+          </svg>
+        </a>
+      </div>
+      <p class="footer-copy">© 2026 Neeraj Koranga. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Cursor Glow
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    });
+
+    // Particles
+    (function () {
+      const c = document.getElementById('heroParticles');
+      for (let i = 0; i < 50; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const s = Math.random() * 3 + 1;
+        Object.assign(p.style, {
+          width: s + 'px', height: s + 'px',
+          left: Math.random() * 100 + '%', top: Math.random() * 100 + '%',
+          animationDuration: (Math.random() * 20 + 10) + 's',
+          animationDelay: (Math.random() * 10) + 's',
+          opacity: Math.random() * 0.5 + 0.1
+        });
+        c.appendChild(p);
+      }
+    })();
+
+    // Scroll Animations
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+
+    // Navbar scroll
+    const nav = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', scrollY > 50);
+      let cur = '';
+      document.querySelectorAll('section[id]').forEach(s => {
+        if (scrollY >= s.offsetTop - 100) cur = s.id;
+      });
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('active', l.getAttribute('href') === '#' + cur);
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) t.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('navLinks').classList.remove('open');
+        document.getElementById('hamburger').classList.remove('active');
+      });
+    });
+
+    // Mobile menu
+    const ham = document.getElementById('hamburger');
+    const navL = document.getElementById('navLinks');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('active');
+      navL.classList.toggle('open');
+    });
+
+    // Card tilt
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${-y * 3}deg) translateY(-4px)`;
+      });
+      card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+    });
+  </script>
+</body>
+
+</html>

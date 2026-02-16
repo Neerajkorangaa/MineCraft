@@ -1,0 +1,116 @@
+/* =============================================
+   LIVE SUBTITLE TRANSLATOR — Overlay Styles
+   ============================================= */
+
+/* Translated subtitle overlay */
+.lst-subtitle-overlay {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999999;
+  max-width: 80%;
+  text-align: center;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+/* Fullscreen adjustments */
+.ytp-fullscreen .lst-subtitle-overlay,
+:fullscreen .lst-subtitle-overlay {
+  bottom: 100px;
+  max-width: 70%;
+}
+
+.lst-subtitle-text {
+  display: inline-block;
+  padding: 8px 18px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #ffffff;
+  font-family: 'Segoe UI', 'Roboto', 'Arial', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.5;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+/* Size variations */
+.lst-subtitle-text.size-small {
+  font-size: 16px;
+  padding: 6px 14px;
+}
+
+.lst-subtitle-text.size-medium {
+  font-size: 22px;
+}
+
+.lst-subtitle-text.size-large {
+  font-size: 28px;
+  padding: 10px 22px;
+}
+
+/* Show original text below translation */
+.lst-original-text {
+  display: block;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+/* Status indicator */
+.lst-status-badge {
+  position: fixed;
+  top: 70px;
+  right: 16px;
+  z-index: 999999;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lst-status-badge.active {
+  background: rgba(0, 206, 201, 0.85);
+  opacity: 1;
+  animation: lst-fade-in-out 3s ease forwards;
+}
+
+.lst-status-badge.error {
+  background: rgba(255, 71, 87, 0.85);
+  opacity: 1;
+}
+
+@keyframes lst-fade-in-out {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  15% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Hide/dim YouTube's original captions when translating */
+.lst-hide-original .ytp-caption-window-container {
+  opacity: 0.15 !important;
+}

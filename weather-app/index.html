@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyPulse — Advanced Weather App</title>
+  <meta name="description"
+    content="SkyPulse: A beautiful, advanced weather application with real-time forecasts, hourly & daily views, UV index, air quality, and more.">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- Background Effects -->
+  <div class="app-bg" id="appBg">
+    <div class="bg-gradient"></div>
+    <div class="bg-orbs">
+      <div class="orb o1"></div>
+      <div class="orb o2"></div>
+      <div class="orb o3"></div>
+    </div>
+  </div>
+
+  <div class="app" id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="app-title">
+          <span class="title-icon">⛅</span>
+          <span>Sky<span class="accent">Pulse</span></span>
+        </h1>
+      </div>
+      <div class="header-center">
+        <div class="search-wrap" id="searchWrap">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search city..." autocomplete="off">
+          <button class="search-btn" id="searchBtn" aria-label="Search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <div class="search-suggestions" id="suggestions"></div>
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="unit-toggle" id="unitToggle" title="Toggle temperature unit">
+          <span class="unit-c active">°C</span>
+          <span class="unit-f">°F</span>
+        </button>
+        <button class="location-btn" id="locationBtn" title="Use my location">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+            <circle cx="12" cy="12" r="4" />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Loading State -->
+    <div class="loading-state hidden" id="loadingState">
+      <div class="loader-spinner"></div>
+      <p>Fetching weather data...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state hidden" id="errorState">
+      <span class="error-icon">⚠️</span>
+      <p id="errorMsg">Could not fetch weather data.</p>
+      <button class="retry-btn" id="retryBtn">Try Again</button>
+    </div>
+
+    <!-- Welcome State -->
+    <div class="welcome-state" id="welcomeState">
+      <div class="welcome-icon">🌤️</div>
+      <h2>Welcome to SkyPulse</h2>
+      <p>Search for a city or use your location to get started</p>
+      <div class="quick-cities">
+        <button class="quick-city" data-city="Delhi">Delhi</button>
+        <button class="quick-city" data-city="Mumbai">Mumbai</button>
+        <button class="quick-city" data-city="Dehradun">Dehradun</button>
+        <button class="quick-city" data-city="London">London</button>
+        <button class="quick-city" data-city="New York">New York</button>
+        <button class="quick-city" data-city="Tokyo">Tokyo</button>
+      </div>
+    </div>
+
+    <!-- Main Weather Content -->
+    <main class="weather-main hidden" id="weatherMain">
+      <!-- Current Weather Hero -->
+      <section class="current-hero">
+        <div class="current-left">
+          <div class="current-location">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+            <span id="cityName">--</span>, <span id="countryName">--</span>
+          </div>
+          <div class="current-datetime" id="currentDateTime">--</div>
+          <div class="current-temp-wrap">
+            <span class="current-weather-icon" id="currentIcon">🌤️</span>
+            <span class="current-temp" id="currentTemp">--°</span>
+          </div>
+          <div class="current-desc" id="currentDesc">--</div>
+          <div class="current-feels">
+            Feels like <span id="feelsLike">--°</span>
+          </div>
+        </div>
+        <div class="current-right">
+          <div class="current-stats">
+            <div class="stat-item">
+              <span class="stat-icon">🌡️</span>
+              <div>
+                <span class="stat-label">High / Low</span>
+                <span class="stat-value"><span id="tempHigh">--</span>° / <span id="tempLow">--</span>°</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">💧</span>
+              <div>
+                <span class="stat-label">Humidity</span>
+                <span class="stat-value"><span id="humidity">--</span>%</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">💨</span>
+              <div>
+                <span class="stat-label">Wind</span>
+                <span class="stat-value"><span id="windSpeed">--</span> km/h</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">👁️</span>
+              <div>
+                <span class="stat-label">Visibility</span>
+                <span class="stat-value"><span id="visibility">--</span> km</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">🌀</span>
+              <div>
+                <span class="stat-label">Pressure</span>
+                <span class="stat-value"><span id="pressure">--</span> hPa</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-icon">🌅</span>
+              <div>
+                <span class="stat-label">Sunrise / Sunset</span>
+                <span class="stat-value"><span id="sunrise">--</span> / <span id="sunset">--</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hourly Forecast -->
+      <section class="forecast-section">
+        <h3 class="section-heading">🕐 Hourly Forecast</h3>
+        <div class="hourly-scroll" id="hourlyScroll">
+          <!-- hourly cards injected by JS -->
+        </div>
+      </section>
+
+      <!-- Daily Forecast -->
+      <section class="forecast-section">
+        <h3 class="section-heading">📅 7-Day Forecast</h3>
+        <div class="daily-grid" id="dailyGrid">
+          <!-- daily rows injected by JS -->
+        </div>
+      </section>
+
+      <!-- Extra Info Cards -->
+      <section class="info-cards">
+        <div class="info-card uv-card">
+          <h4>☀️ UV Index</h4>
+          <div class="uv-value" id="uvValue">--</div>
+          <div class="uv-label" id="uvLabel">--</div>
+          <div class="uv-bar">
+            <div class="uv-fill" id="uvFill"></div>
+          </div>
+        </div>
+        <div class="info-card wind-card">
+          <h4>🧭 Wind Details</h4>
+          <div class="wind-compass">
+            <div class="compass-ring">
+              <div class="compass-arrow" id="windArrow"></div>
+              <span class="compass-n">N</span>
+              <span class="compass-s">S</span>
+              <span class="compass-e">E</span>
+              <span class="compass-w">W</span>
+            </div>
+            <div class="wind-info">
+              <div class="wind-big" id="windSpeedBig">--</div>
+              <div class="wind-unit">km/h</div>
+              <div class="wind-dir" id="windDir">--</div>
+            </div>
+          </div>
+        </div>
+        <div class="info-card humid-card">
+          <h4>💧 Humidity & Dew Point</h4>
+          <div class="humid-circle-wrap">
+            <svg class="humid-ring" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8" />
+              <circle cx="50" cy="50" r="42" fill="none" stroke="url(#humidGrad)" stroke-width="8"
+                stroke-linecap="round" stroke-dasharray="264" stroke-dashoffset="264" id="humidArc"
+                transform="rotate(-90 50 50)" />
+              <defs>
+                <linearGradient id="humidGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#6c5ce7" />
+                  <stop offset="100%" stop-color="#00cec9" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <div class="humid-value" id="humidValue">--%</div>
+          </div>
+          <div class="dew-point">Dew Point: <span id="dewPoint">--</span>°</div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Built by <strong>Neeraj Koranga</strong> • Powered by <a href="https://open-meteo.com"
+          target="_blank">Open-Meteo API</a></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
+</html>

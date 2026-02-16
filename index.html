@@ -33,14 +33,23 @@
       <div class="controls-help">
         <h3>Controls</h3>
         <div class="ctrl-grid">
-          <div><kbd>W A S D</kbd> Move</div>
-          <div><kbd>SPACE</kbd> Jump</div>
-          <div><kbd>MOUSE</kbd> Look Around</div>
-          <div><kbd>LEFT CLICK</kbd> Break Block</div>
-          <div><kbd>RIGHT CLICK</kbd> Place Block</div>
-          <div><kbd>1-9</kbd> Select Block</div>
-          <div><kbd>SCROLL</kbd> Cycle Blocks</div>
-          <div><kbd>E</kbd> Toggle Inventory</div>
+          <div class="desktop-controls">
+            <div><kbd>W A S D</kbd> Move</div>
+            <div><kbd>SPACE</kbd> Jump</div>
+            <div><kbd>MOUSE</kbd> Look Around</div>
+            <div><kbd>LEFT CLICK</kbd> Break Block</div>
+            <div><kbd>RIGHT CLICK</kbd> Place Block</div>
+            <div><kbd>1-9</kbd> Select Block</div>
+            <div><kbd>SCROLL</kbd> Cycle Blocks</div>
+            <div><kbd>E</kbd> Toggle Inventory</div>
+          </div>
+          <div class="mobile-controls-hint">
+            <div>🕹️ Left side — Move</div>
+            <div>👆 Right side — Look</div>
+            <div>⛏️ Break button — Break Block</div>
+            <div>🧱 Place button — Place Block</div>
+            <div>⬆️ Jump button — Jump</div>
+          </div>
         </div>
       </div>
     </div>
@@ -65,6 +74,21 @@
 
     <!-- Block name tooltip -->
     <div class="block-tooltip hidden" id="blockTooltip"></div>
+
+    <!-- Mobile Touch Controls -->
+    <div id="mobileControls" class="mobile-controls hidden">
+      <div class="joystick-area" id="joystickArea">
+        <div class="joystick-base">
+          <div class="joystick-knob" id="joystickKnob"></div>
+        </div>
+      </div>
+      <div class="look-area" id="lookArea"></div>
+      <div class="touch-buttons">
+        <button class="touch-btn touch-jump" id="btnTouchJump">⬆</button>
+        <button class="touch-btn touch-break" id="btnTouchBreak">⛏</button>
+        <button class="touch-btn touch-place" id="btnTouchPlace">🧱</button>
+      </div>
+    </div>
   </div>
 
   <!-- Pause Menu -->

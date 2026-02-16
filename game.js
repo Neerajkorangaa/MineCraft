@@ -1,6 +1,7 @@
 /* ==========================================
    CraftWorld — Optimized Game Controller
-   Uses DDA raycasting, merged mesh rebuild
+   Performance: object pooling, dirty-flag mesh,
+   mobile touch controls, adaptive quality
    ========================================== */
 
 const loadingScreen = document.getElementById('loadingScreen');
@@ -18,6 +19,17 @@ let scene, camera, renderer;
 let world, blockMaterials, blockTextures;
 let highlightMesh;
 
+// ---- Device Detection ----
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  || (navigator.maxTouchPoints > 1 && window.innerWidth < 1024);
+
+const QUALITY = {
+  pixelRatio: isMobile ? 1 : Math.min(devicePixelRatio, 2),
+  fogDensity: isMobile ? 0.04 : 0.025,
+  farPlane: isMobile ? 80 : 150,
+  antialias: !isMobile,
+};
+
 const playerState = {
   velocity: new THREE.Vector3(),
   onGround: false,
@@ -34,19 +46,42 @@ let mouseDX = 0, mouseDY = 0;
 let isPointerLocked = false;
 let isPaused = false;
 let frameCount = 0, lastFPSTime = 0, fps = 0, tooltipTimer = 0;
-let targetHit = null; // DDA raycast result
+let targetHit = null;
+
+// ---- Reusable Vector3 pool (avoid GC pressure) ----
+const _fwd = new THREE.Vector3();
+const _right = new THREE.Vector3();
+const _mv = new THREE.Vector3();
+const _up = new THREE.Vector3(0, 1, 0);
+const _np = new THREE.Vector3();
+const _colCheck = new THREE.Vector3();
+const _rayDir = new THREE.Vector3();
+
+// ---- Dirty flag for mesh rebuild batching ----
+let meshDirty = false;
+
+function scheduleMeshRebuild() {
+  meshDirty = true;
+}
+
+// ---- Mobile Touch State ----
+let touchJoystick = { active: false, id: null, startX: 0, startY: 0, dx: 0, dy: 0 };
+let touchLook = { active: false, id: null, lastX: 0, lastY: 0 };
+let touchJump = false;
+let touchBreak = false;
+let touchPlace = false;
 
 // ---- INIT ----
 async function init() {
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x87CEEB);
-  scene.fog = new THREE.FogExp2(0x87CEEB, 0.025);
+  scene.fog = new THREE.FogExp2(0x87CEEB, QUALITY.fogDensity);
 
-  camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 150);
+  camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, QUALITY.farPlane);
 
-  renderer = new THREE.WebGLRenderer({ antialias: false });
+  renderer = new THREE.WebGLRenderer({ antialias: QUALITY.antialias });
   renderer.setSize(innerWidth, innerHeight);
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.setPixelRatio(QUALITY.pixelRatio);
   document.body.insertBefore(renderer.domElement, document.body.firstChild);
 
   scene.add(new THREE.AmbientLight(0xccccff, 0.6));
@@ -80,6 +115,8 @@ async function init() {
 
   buildHotbar();
   setupEvents();
+
+  if (isMobile) setupMobileControls();
 
   updateLoading(100, 'Ready!');
   await delay(200);
@@ -136,6 +173,7 @@ function setupEvents() {
     mouseDX += e.movementX; mouseDY += e.movementY;
   });
   renderer.domElement.addEventListener('mousedown', e => {
+    if (isMobile) return; // mobile uses touch controls
     if (!isPointerLocked) { renderer.domElement.requestPointerLock(); return; }
     if (e.button === 0) breakBlock();
     if (e.button === 2) placeBlock();
@@ -149,7 +187,7 @@ function setupEvents() {
   });
   document.addEventListener('pointerlockchange', () => {
     isPointerLocked = document.pointerLockElement === renderer.domElement;
-    if (!isPointerLocked && !isPaused) showPause();
+    if (!isPointerLocked && !isPaused && !isMobile) showPause();
   });
   window.addEventListener('resize', () => {
     camera.aspect = innerWidth / innerHeight;
@@ -161,17 +199,128 @@ function setupEvents() {
   document.getElementById('btnRestart').addEventListener('click', restartGame);
 }
 
+// ---- MOBILE TOUCH CONTROLS ----
+function setupMobileControls() {
+  const mobileUI = document.getElementById('mobileControls');
+  if (mobileUI) mobileUI.classList.remove('hidden');
+
+  const joystickArea = document.getElementById('joystickArea');
+  const joystickKnob = document.getElementById('joystickKnob');
+  const lookArea = document.getElementById('lookArea');
+
+  // Joystick touch
+  if (joystickArea) {
+    joystickArea.addEventListener('touchstart', e => {
+      e.preventDefault();
+      const t = e.changedTouches[0];
+      touchJoystick.active = true;
+      touchJoystick.id = t.identifier;
+      touchJoystick.startX = t.clientX;
+      touchJoystick.startY = t.clientY;
+      touchJoystick.dx = 0;
+      touchJoystick.dy = 0;
+    }, { passive: false });
+
+    joystickArea.addEventListener('touchmove', e => {
+      e.preventDefault();
+      for (const t of e.changedTouches) {
+        if (t.identifier === touchJoystick.id) {
+          const maxR = 40;
+          let dx = t.clientX - touchJoystick.startX;
+          let dy = t.clientY - touchJoystick.startY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist > maxR) { dx = dx / dist * maxR; dy = dy / dist * maxR; }
+          touchJoystick.dx = dx / maxR;
+          touchJoystick.dy = dy / maxR;
+          if (joystickKnob) {
+            joystickKnob.style.transform = `translate(${dx}px, ${dy}px)`;
+          }
+        }
+      }
+    }, { passive: false });
+
+    const endJoystick = e => {
+      for (const t of e.changedTouches) {
+        if (t.identifier === touchJoystick.id) {
+          touchJoystick.active = false;
+          touchJoystick.dx = 0;
+          touchJoystick.dy = 0;
+          if (joystickKnob) joystickKnob.style.transform = '';
+        }
+      }
+    };
+    joystickArea.addEventListener('touchend', endJoystick);
+    joystickArea.addEventListener('touchcancel', endJoystick);
+  }
+
+  // Look area touch (right side of screen)
+  if (lookArea) {
+    lookArea.addEventListener('touchstart', e => {
+      e.preventDefault();
+      const t = e.changedTouches[0];
+      touchLook.active = true;
+      touchLook.id = t.identifier;
+      touchLook.lastX = t.clientX;
+      touchLook.lastY = t.clientY;
+    }, { passive: false });
+
+    lookArea.addEventListener('touchmove', e => {
+      e.preventDefault();
+      for (const t of e.changedTouches) {
+        if (t.identifier === touchLook.id) {
+          mouseDX += (t.clientX - touchLook.lastX) * 1.5;
+          mouseDY += (t.clientY - touchLook.lastY) * 1.5;
+          touchLook.lastX = t.clientX;
+          touchLook.lastY = t.clientY;
+        }
+      }
+    }, { passive: false });
+
+    const endLook = e => {
+      for (const t of e.changedTouches) {
+        if (t.identifier === touchLook.id) {
+          touchLook.active = false;
+        }
+      }
+    };
+    lookArea.addEventListener('touchend', endLook);
+    lookArea.addEventListener('touchcancel', endLook);
+  }
+
+  // Action buttons
+  const btnJump = document.getElementById('btnTouchJump');
+  const btnBreak = document.getElementById('btnTouchBreak');
+  const btnPlace = document.getElementById('btnTouchPlace');
+
+  if (btnJump) {
+    btnJump.addEventListener('touchstart', e => { e.preventDefault(); touchJump = true; }, { passive: false });
+    btnJump.addEventListener('touchend', e => { touchJump = false; });
+  }
+  if (btnBreak) {
+    btnBreak.addEventListener('touchstart', e => { e.preventDefault(); breakBlock(); }, { passive: false });
+  }
+  if (btnPlace) {
+    btnPlace.addEventListener('touchstart', e => { e.preventDefault(); placeBlock(); }, { passive: false });
+  }
+}
+
 // ---- GAME STATE ----
 function startGame() {
   startScreen.classList.add('hidden');
   hudEl.classList.remove('hidden');
   isPaused = false;
-  renderer.domElement.requestPointerLock();
+  if (!isMobile) {
+    renderer.domElement.requestPointerLock();
+  }
   lastFPSTime = performance.now();
   gameLoop();
 }
 function showPause() { isPaused = true; pauseMenu.classList.remove('hidden'); }
-function resumeGame() { isPaused = false; pauseMenu.classList.add('hidden'); renderer.domElement.requestPointerLock(); }
+function resumeGame() {
+  isPaused = false;
+  pauseMenu.classList.add('hidden');
+  if (!isMobile) renderer.domElement.requestPointerLock();
+}
 function restartGame() {
   pauseMenu.classList.add('hidden'); hudEl.classList.add('hidden');
   loadingScreen.classList.remove('hidden'); updateLoading(0, 'New world...');
@@ -186,46 +335,63 @@ function restartGame() {
     playerState.velocity.set(0, 0, 0);
     updateLoading(100, 'Ready!'); await delay(200);
     loadingScreen.classList.add('hidden'); hudEl.classList.remove('hidden');
-    isPaused = false; renderer.domElement.requestPointerLock();
+    isPaused = false;
+    if (!isMobile) renderer.domElement.requestPointerLock();
     lastFPSTime = performance.now(); gameLoop();
   }, 50);
 }
 
-// ---- PLAYER ----
+// ---- PLAYER (optimized — reuses Vector3 objects) ----
 function updatePlayer() {
-  const sens = 0.002;
+  const sens = isMobile ? 0.003 : 0.002;
   if (mouseDX || mouseDY) {
     camera.rotation.order = 'YXZ';
     camera.rotation.y -= mouseDX * sens;
     camera.rotation.x = Math.max(-1.56, Math.min(1.56, camera.rotation.x - mouseDY * sens));
     mouseDX = mouseDY = 0;
   }
-  const fwd = new THREE.Vector3(); camera.getWorldDirection(fwd); fwd.y = 0; fwd.normalize();
-  const right = new THREE.Vector3().crossVectors(fwd, new THREE.Vector3(0, 1, 0)).normalize();
-  const mv = new THREE.Vector3();
-  if (keys['KeyW'] || keys['ArrowUp']) mv.add(fwd);
-  if (keys['KeyS'] || keys['ArrowDown']) mv.sub(fwd);
-  if (keys['KeyA'] || keys['ArrowLeft']) mv.sub(right);
-  if (keys['KeyD'] || keys['ArrowRight']) mv.add(right);
-  if (mv.length() > 0) mv.normalize().multiplyScalar(playerState.speed);
 
-  playerState.velocity.x = mv.x;
-  playerState.velocity.z = mv.z;
+  camera.getWorldDirection(_fwd); _fwd.y = 0; _fwd.normalize();
+  _right.crossVectors(_fwd, _up).normalize();
+  _mv.set(0, 0, 0);
+
+  // Keyboard input
+  if (keys['KeyW'] || keys['ArrowUp']) _mv.add(_fwd);
+  if (keys['KeyS'] || keys['ArrowDown']) _mv.sub(_fwd);
+  if (keys['KeyA'] || keys['ArrowLeft']) _mv.sub(_right);
+  if (keys['KeyD'] || keys['ArrowRight']) _mv.add(_right);
+
+  // Mobile joystick input
+  if (touchJoystick.active) {
+    _mv.addScaledVector(_fwd, -touchJoystick.dy);
+    _mv.addScaledVector(_right, touchJoystick.dx);
+  }
+
+  if (_mv.lengthSq() > 0) _mv.normalize().multiplyScalar(playerState.speed);
+
+  playerState.velocity.x = _mv.x;
+  playerState.velocity.z = _mv.z;
   playerState.velocity.y += playerState.gravity;
-  if (keys['Space'] && playerState.onGround) { playerState.velocity.y = playerState.jumpForce; playerState.onGround = false; }
+  if ((keys['Space'] || touchJump) && playerState.onGround) {
+    playerState.velocity.y = playerState.jumpForce;
+    playerState.onGround = false;
+  }
 
-  const np = camera.position.clone().add(playerState.velocity);
+  _np.copy(camera.position).add(playerState.velocity);
   const pr = 0.3;
 
   // X collision
-  if (!checkCol(new THREE.Vector3(np.x, camera.position.y, camera.position.z), pr)) camera.position.x = np.x;
+  _colCheck.set(_np.x, camera.position.y, camera.position.z);
+  if (!checkCol(_colCheck, pr)) camera.position.x = _np.x;
   else playerState.velocity.x = 0;
   // Z collision
-  if (!checkCol(new THREE.Vector3(camera.position.x, camera.position.y, np.z), pr)) camera.position.z = np.z;
+  _colCheck.set(camera.position.x, camera.position.y, _np.z);
+  if (!checkCol(_colCheck, pr)) camera.position.z = _np.z;
   else playerState.velocity.z = 0;
   // Y collision
-  if (!checkCol(new THREE.Vector3(camera.position.x, np.y, camera.position.z), pr)) {
-    camera.position.y = np.y; playerState.onGround = false;
+  _colCheck.set(camera.position.x, _np.y, camera.position.z);
+  if (!checkCol(_colCheck, pr)) {
+    camera.position.y = _np.y; playerState.onGround = false;
   } else {
     if (playerState.velocity.y < 0) {
       playerState.onGround = true;
@@ -253,8 +419,8 @@ function checkCol(pos, r) {
 
 // ---- BLOCK INTERACTION (DDA Raycast) ----
 function updateRaycast() {
-  const dir = new THREE.Vector3(); camera.getWorldDirection(dir);
-  targetHit = world.raycast(camera.position, dir, 7);
+  camera.getWorldDirection(_rayDir);
+  targetHit = world.raycast(camera.position, _rayDir, 7);
   if (targetHit) {
     highlightMesh.visible = true;
     highlightMesh.position.set(targetHit.x + 0.5, targetHit.y + 0.5, targetHit.z + 0.5);
@@ -267,7 +433,7 @@ function breakBlock() {
   if (!targetHit) return;
   if (targetHit.blockId === 10) return; // bedrock
   world.setBlock(targetHit.x, targetHit.y, targetHit.z, 0);
-  world.buildMesh(scene, blockMaterials); // rebuild merged mesh
+  scheduleMeshRebuild(); // deferred rebuild instead of instant
   highlightMesh.visible = false;
   targetHit = null;
 }
@@ -284,14 +450,22 @@ function placeBlock() {
   const bid = HOTBAR_BLOCKS[playerState.selectedSlot];
   if (!bid) return;
   world.setBlock(x, y, z, bid);
-  world.buildMesh(scene, blockMaterials);
+  scheduleMeshRebuild(); // deferred rebuild instead of instant
 }
 
-// ---- GAME LOOP ----
+// ---- GAME LOOP (optimized) ----
 function gameLoop() {
   if (isPaused) { renderer.render(scene, camera); requestAnimationFrame(gameLoop); return; }
+
   updatePlayer();
   updateRaycast();
+
+  // Batch mesh rebuild — at most once per frame
+  if (meshDirty) {
+    world.buildMesh(scene, blockMaterials);
+    meshDirty = false;
+  }
+
   if (tooltipTimer > 0) { tooltipTimer--; if (tooltipTimer <= 0) blockTooltip.classList.add('hidden'); }
   frameCount++;
   const now = performance.now();
