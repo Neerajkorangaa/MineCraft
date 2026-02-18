@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dehradun Metro - Route Mapper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="metro-icon">🚇</span>
+                <h1>Dehradun Metro</h1>
+            </div>
+            <p class="tagline">Smart Route Finding System</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Panel - Controls -->
+        <aside class="control-panel">
+            <div class="card">
+                <h2>Plan Your Journey</h2>
+
+                <!-- Source Station -->
+                <div class="input-group">
+                    <label for="source">From</label>
+                    <select id="source" class="station-select">
+                        <option value="">Select Source Station</option>
+                    </select>
+                </div>
+
+                <!-- Destination Station -->
+                <div class="input-group">
+                    <label for="destination">To</label>
+                    <select id="destination" class="station-select">
+                        <option value="">Select Destination Station</option>
+                    </select>
+                </div>
+
+                <!-- Algorithm Choice -->
+                <div class="input-group">
+                    <label>Route Type</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="algorithm" value="dijkstra" checked>
+                            <span>Shortest Distance</span>
+                            <small>Minimum kilometers</small>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="algorithm" value="bfs">
+                            <span>Minimum Stops</span>
+                            <small>Least stations</small>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Find Route Button -->
+                <button id="findRoute" class="btn-primary">
+                    <span>Find Route</span>
+                    <span class="btn-icon">→</span>
+                </button>
+
+                <!-- Clear Button -->
+                <button id="clearRoute" class="btn-secondary">Clear</button>
+            </div>
+
+            <!-- Line Info -->
+            <div class="card line-info">
+                <h3>Metro Lines</h3>
+                <div class="line-item yellow-line">
+                    <span class="line-dot"></span>
+                    <div>
+                        <strong>Yellow Line (14 stn)</strong>
+                        <p>Rishikesh ↔ Mussoorie</p>
+                    </div>
+                </div>
+                <div class="line-item blue-line">
+                    <span class="line-dot"></span>
+                    <div>
+                        <strong>Blue Line (13 stn)</strong>
+                        <p>Selaqui ↔ Lacchi Wala</p>
+                    </div>
+                </div>
+                <div class="line-item red-line">
+                    <span class="line-dot"></span>
+                    <div>
+                        <strong>Red Line (8 stn)</strong>
+                        <p>FRI ↔ Maldevta</p>
+                    </div>
+                </div>
+                <div class="interchange-info"
+                    style="margin-top:12px;padding:10px;background:#f0f0f0;border-radius:8px;font-size:12px;">
+                    <strong>Interchange Stations:</strong><br>
+                    ★ ISBT (Yellow + Blue)<br>
+                    ★ Rajpur (Yellow + Red)
+                </div>
+            </div>
+        </aside>
+
+        <!-- Center - Metro Map -->
+        <main class="map-container">
+            <div class="card map-card">
+                <div class="map-header">
+                    <h2>Metro Network Map</h2>
+                    <div class="map-controls">
+                        <button id="zoomIn" class="icon-btn">+</button>
+                        <button id="zoomOut" class="icon-btn">−</button>
+                        <button id="resetZoom" class="icon-btn">⟲</button>
+                    </div>
+                </div>
+                <div id="metroMap" class="metro-map">
+                    <!-- Metro map will be generated here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel - Results -->
+        <aside class="result-panel">
+            <!-- Welcome Message (shown initially) -->
+            <div id="welcomeMessage" class="card welcome">
+                <div class="welcome-icon">🎯</div>
+                <h3>Welcome!</h3>
+                <p>Select your source and destination stations to find the best route</p>
+                <div class="features">
+                    <div class="feature-item">
+                        <span>📍</span>
+                        <span>23 Stations</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>🚄</span>
+                        <span>3 Lines</span>
+                    </div>
+                    <div class="feature-item">
+                        <span>⚡</span>
+                        <span>Smart Routes</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Route Result (shown after search) -->
+            <div id="routeResult" class="card route-result" style="display: none;">
+                <h2>Your Route</h2>
+
+                <!-- Journey Path -->
+                <div class="journey-path" id="journeyPath">
+                    <!-- Stations will be added here -->
+                </div>
+
+                <!-- Journey Summary -->
+                <div class="summary-box">
+                    <h3>Journey Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span class="summary-label">Stations</span>
+                            <span class="summary-value" id="totalStations">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Distance</span>
+                            <span class="summary-value" id="totalDistance">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Time</span>
+                            <span class="summary-value" id="totalTime">-</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Changes</span>
+                            <span class="summary-value" id="lineChanges">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fare Box -->
+                <div class="fare-box">
+                    <div class="fare-header">
+                        <span>Total Fare</span>
+                        <span class="fare-amount" id="totalFare">₹ 0</span>
+                    </div>
+                    <div class="fare-breakdown" id="fareBreakdown">
+                        <!-- Fare details will be added here -->
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Dehradun Metro Route Mapper | DSA Project - Graph Algorithms (BFS & Dijkstra)</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="algorithms.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
