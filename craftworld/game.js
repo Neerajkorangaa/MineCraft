@@ -32,10 +32,10 @@ const QUALITY = {
 
 const playerState = {
   velocity: new THREE.Vector3(),
-  onGround: false,
+  onGround: true,
   speed: 0.08,
   jumpForce: 0.15,
-  gravity: -0.006,
+  gravity: -0.008,
   height: 1.7,
   eyeHeight: 1.6,
   selectedSlot: 0,
@@ -395,7 +395,10 @@ function updatePlayer() {
   } else {
     if (playerState.velocity.y < 0) {
       playerState.onGround = true;
-      camera.position.y = Math.floor(camera.position.y - playerState.eyeHeight) + playerState.eyeHeight + 1;
+      // Snap feet to top of the block below
+      const feetY = _np.y - playerState.eyeHeight;
+      const snappedFeet = Math.floor(feetY) + 1;
+      camera.position.y = snappedFeet + playerState.eyeHeight;
     }
     playerState.velocity.y = 0;
   }
@@ -406,12 +409,19 @@ function updatePlayer() {
 
 function checkCol(pos, r) {
   const feet = pos.y - playerState.eyeHeight;
-  for (let dx = -1; dx <= 1; dx++) for (let dz = -1; dz <= 1; dz++) for (let dy = 0; dy <= 2; dy++) {
-    const bx = Math.floor(pos.x + dx * r), by = Math.floor(feet + dy), bz = Math.floor(pos.z + dz * r);
+  const head = pos.y;
+  for (let dx = -1; dx <= 1; dx++) for (let dz = -1; dz <= 1; dz++) for (let dy = -1; dy <= 2; dy++) {
+    const bx = Math.floor(pos.x + dx * r), by = Math.floor(feet + dy + 0.001), bz = Math.floor(pos.z + dz * r);
     const b = world.getBlock(bx, by, bz);
     if (b && BLOCK_TYPES[b] && BLOCK_TYPES[b].solid) {
-      if (pos.x + r > bx && pos.x - r < bx + 1 && feet < by + 1 && pos.y > by && pos.z + r > bz && pos.z - r < bz + 1)
+      const blockTop = by + 1;
+      const blockBot = by;
+      // AABB overlap test
+      if (pos.x + r > bx && pos.x - r < bx + 1 &&
+        feet < blockTop && head > blockBot &&
+        pos.z + r > bz && pos.z - r < bz + 1) {
         return true;
+      }
     }
   }
   return false;

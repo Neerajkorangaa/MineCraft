@@ -241,11 +241,31 @@ class VoxelWorld {
   }
 
   findSpawnPosition() {
+    // Try multiple positions to find solid ground with open air above
     const cx = Math.floor(WORLD_SIZE / 2), cz = Math.floor(WORLD_SIZE / 2);
-    for (let y = WORLD_HEIGHT - 1; y >= 0; y--) {
-      const b = this.getBlock(cx, y, cz);
-      if (b !== 0 && b !== 7) return { x: cx + 0.5, y: y + 2.5, z: cz + 0.5 };
+    const candidates = [[cx, cz]];
+    for (let dx = -3; dx <= 3; dx += 2) {
+      for (let dz = -3; dz <= 3; dz += 2) {
+        const sx = Math.min(WORLD_SIZE - 1, Math.max(0, cx + dx));
+        const sz = Math.min(WORLD_SIZE - 1, Math.max(0, cz + dz));
+        candidates.push([sx, sz]);
+      }
     }
-    return { x: cx, y: 25, z: cz };
+
+    for (const [px, pz] of candidates) {
+      for (let y = WORLD_HEIGHT - 1; y >= 1; y--) {
+        const b = this.getBlock(px, y, pz);
+        if (b !== 0 && b !== 7) {
+          // Ensure two blocks of open air above for the player
+          const above1 = this.getBlock(px, y + 1, pz);
+          const above2 = this.getBlock(px, y + 2, pz);
+          if ((above1 === 0 || above1 === 7) && (above2 === 0 || above2 === 7)) {
+            return { x: px + 0.5, y: y + 1 + 1.6, z: pz + 0.5 };
+          }
+        }
+      }
+    }
+    return { x: cx + 0.5, y: 25, z: cz + 0.5 };
   }
+
 }
